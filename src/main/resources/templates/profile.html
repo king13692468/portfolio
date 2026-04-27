@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Profile</title>
+</head>
+<body>
+
+<h1 th:text="${user.name}"></h1>
+
+<p>
+    GitHub:
+    <a th:href="${user.githubLink}" target="_blank">Open</a>
+</p>
+
+<p>
+    LinkedIn:
+    <a th:href="${user.linkedinLink}" target="_blank">Open</a>
+</p>
+
+<p>
+    Resume:
+    <a th:href="${user.resumeLink}" target="_blank">Download</a>
+</p>
+
+<h2>Projects</h2>
+
+<div th:each="project : ${projects}">
+    <h3 th:text="${project.title}"></h3>
+    <p th:text="${project.description}"></p>
+
+    <a th:href="${project.githubLink}" target="_blank">GitHub</a> |
+    <a th:href="${project.projectLink}" target="_blank">Live</a>
+
+    <hr>
+</div>
+
+</body>
+</html>
