@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Portfolio Menu</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; text-align: center; }
+        .menu-container { max-width: 500px; margin: auto; }
+        h1 { color: #333; }
+        .menu-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .menu-btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+<div class="menu-container">
+    <h1>Welcome, <span th:text="${user.name}"></span>!</h1>
+    <p>What would you like to see?</p>
+
+    <a th:href="@{/p/{username}/redirect/github(username=${user.username})}" class="menu-btn">
+        🔗 View GitHub Profile
+    </a>
+
+    <a th:href="@{/p/{username}/redirect/linkedin(username=${user.username})}" class="menu-btn">
+        🔗 View LinkedIn Profile
+    </a>
+
+    <a th:href="@{/p/{username}/projects(username=${user.username})}" class="menu-btn">
+        📁 View My Projects
+    </a>
+
+    <a th:href="@{/p/{username}/resume(username=${user.username})}" class="menu-btn">
+        📄 View Resume
+    </a>
+
+    <br>
+    <a href="/">← Back to Home</a>
+</div>
+</body>
+</html>

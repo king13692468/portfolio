@@ -22,73 +22,90 @@ public class ProfileController {
     @Autowired
     private ProjectRepository projectRepo;
 
-    // =========================
-    // HOME PAGE
-    // =========================
     @GetMapping("/")
     public String home() {
         return "index";
     }
 
-    // =========================
-    // HEALTH CHECK (Railway)
-    // =========================
-    @GetMapping("/api")
-    @ResponseBody
-    public String api() {
-        return "Portfolio System Running";
-    }
-
-    @GetMapping("/test")
-    @ResponseBody
-    public String test() {
-        return "OK - App is working";
-    }
-
-    // =========================
-    // USER PROFILE PAGE
-    // =========================
     @GetMapping("/p/{username}")
-    public String profile(@PathVariable String username, Model model) {
-
+    public String showMenu(@PathVariable String username, Model model) {
         User user = userRepo.findByUsername(username);
-
-        if (user == null) {
-            return "redirect:/";
-        }
-
-        List<Project> projects = projectRepo.findByUserId(user.getId());
-
-        if (projects == null) {
-            projects = new ArrayList<>();
-        }
+        if (user == null) return "redirect:/";
 
         model.addAttribute("user", user);
+        return "menu"; // Main menu page
+    }
+
+    // Show GitHub
+    @GetMapping("/p/{username}/github")
+    public String showGithub(@PathVariable String username, Model model) {
+        User user = userRepo.findByUsername(username);
+        if (user == null) return "redirect:/";
+
+        model.addAttribute("user", user);
+        return "github";
+    }
+
+    // Show LinkedIn
+    @GetMapping("/p/{username}/linkedin")
+    public String showLinkedin(@PathVariable String username, Model model) {
+        User user = userRepo.findByUsername(username);
+        if (user == null) return "redirect:/";
+
+        model.addAttribute("user", user);
+        return "linkedin";
+    }
+
+    // Show all projects (list view)
+    @GetMapping("/p/{username}/projects")
+    public String showProjects(@PathVariable String username, Model model) {
+        User user = userRepo.findByUsername(username);
+        if (user == null) return "redirect:/";
+
+        List<Project> projects = projectRepo.findByUserId(user.getId());
+        model.addAttribute("user", user);
         model.addAttribute("projects", projects);
-
-        return "profile";
+        return "projects-list";
     }
 
-    // =========================
-    // PROJECT DETAIL PAGE (FIXED)
-    // =========================
-    @GetMapping("/project/{id}")
-    public String projectDetail(@PathVariable int id, Model model) {
+    // Show single project details
+    @GetMapping("/p/{username}/project/{projectId}")
+    public String showProjectDetails(@PathVariable String username,
+                                     @PathVariable int projectId,
+                                     Model model) {
+        User user = userRepo.findByUsername(username);
+        Project project = projectRepo.findById(projectId).orElse(null);
 
-        Project project = projectRepo.findById(id).orElse(null);
+        if (user == null || project == null) return "redirect:/";
 
-        if (project == null) {
-            return "redirect:/";
-        }
-
+        model.addAttribute("user", user);
         model.addAttribute("project", project);
-
-        return "project-detail"; // IMPORTANT FIX
+        return "project-details";
     }
-    @GetMapping("/debug/users")
-    @ResponseBody
-    public String debugUsers() {
-        List<User> users = userRepo.findAll();
-        return "Total users in DB: " + users.size() + " - Users: " + users.stream().map(User::getUsername).toList();
+
+    // Show Resume
+    @GetMapping("/p/{username}/resume")
+    public String showResume(@PathVariable String username, Model model) {
+        User user = userRepo.findByUsername(username);
+        if (user == null) return "redirect:/";
+
+        model.addAttribute("user", user);
+        return "resume";
+    }
+
+    // Direct redirect to GitHub link
+    @GetMapping("/p/{username}/redirect/github")
+    public String redirectToGithub(@PathVariable String username) {
+        User user = userRepo.findByUsername(username);
+        if (user == null) return "redirect:/";
+        return "redirect:" + user.getGithubLink();
+    }
+
+    // Direct redirect to LinkedIn link
+    @GetMapping("/p/{username}/redirect/linkedin")
+    public String redirectToLinkedin(@PathVariable String username) {
+        User user = userRepo.findByUsername(username);
+        if (user == null) return "redirect:/";
+        return "redirect:" + user.getLinkedinLink();
     }
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resume</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .resume-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .download-btn { background-color: #28a745; }
+        .back-btn { background-color: #6c757d; }
+        .skills { margin: 20px 0; }
+        .skill-tag {
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            display: inline-block;
+            margin: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+<div class="resume-container">
+    <h1 th:text="${user.name}"></h1>
+    <h3>Full Stack Java Developer</h3>
+
+    <div class="skills">
+        <h4>Technical Skills:</h4>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">Spring Boot</span>
+        <span class="skill-tag">Spring Data JPA</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">Hibernate</span>
+        <span class="skill-tag">Maven</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">REST APIs</span>
+    </div>
+
+    <h4>Contact:</h4>
+    <p>GitHub: <a th:href="${user.githubLink}" target="_blank">Profile</a></p>
+    <p>LinkedIn: <a th:href="${user.linkedinLink}" target="_blank">Profile</a></p>
+
+    <a th:href="${user.resumeLink}" target="_blank" class="btn download-btn">
+        📥 Download Full Resume PDF
+    </a>
+
+    <br><br>
+    <a th:href="@{/p/{username}(username=${user.username})}" class="btn back-btn">
+        ← Back to Menu
+    </a>
+</div>
+</body>
+</html>

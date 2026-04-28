@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My Portfolio System</title>
+    <title>Portfolio System</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 50px; }
+        input, button { padding: 10px; margin: 10px; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
 </head>
 <body>
 <h1>My Portfolio System</h1>
 
-<form id="profileForm">
-    <input type="text" id="username" placeholder="Enter username" required>
-    <button type="submit">View Profile</button>
+<form action="/p" method="get">
+    <input type="text" name="username" placeholder="Enter username" required>
+    <button type="submit">View Portfolio</button>
 </form>
 
-<script>
-    document.getElementById('profileForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const username = document.getElementById('username').value;
-        if(username) {
-            window.location.href = '/p/' + username;
-        }
-    });
-</script>
+<br>
+<p>Demo users: john_doe, jane_smith</p>
 </body>
 </html>

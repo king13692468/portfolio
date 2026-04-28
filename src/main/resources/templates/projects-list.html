@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Projects</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .project-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+        .btn:hover { background-color: #218838; }
+        .back-btn { background-color: #6c757d; }
+        .back-btn:hover { background-color: #5a6268; }
+    </style>
+</head>
+<body>
+<h1>Projects by <span th:text="${user.name}"></span></h1>
+
+<div th:each="project : ${projects}">
+    <div class="project-card">
+        <h2 th:text="${project.title}"></h2>
+        <p th:text="${project.description}"></p>
+
+        <a th:href="@{/p/{username}/project/{projectId}(username=${user.username}, projectId=${project.id})}"
+           class="btn">View Details</a>
+    </div>
+</div>
+
+<div th:if="${projects.empty}">
+    <p>No projects found.</p>
+</div>
+
+<br>
+<a th:href="@{/p/{username}(username=${user.username})}" class="btn back-btn">← Back to Menu</a>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${project.title}"></title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .details-box {
+            border: 1px solid #ddd;
+            padding: 30px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 10px 10px 0;
+            border-radius: 3px;
+        }
+        .github-btn { background-color: #333; }
+        .live-btn { background-color: #28a745; }
+        .back-btn { background-color: #6c757d; }
+        hr { margin: 20px 0; }
+    </style>
+</head>
+<body>
+<div class="details-box">
+    <h1 th:text="${project.title}"></h1>
+
+    <h3>About Project:</h3>
+    <p th:text="${project.description}"></p>
+
+    <hr>
+
+    <h3>Technical Details:</h3>
+    <p th:text="${project.details}"></p>
+
+    <hr>
+
+    <h3>How to Use:</h3>
+    <p>1. Visit the live demo or GitHub repository</p>
+    <p>2. Follow the README instructions</p>
+    <p>3. Run the application locally</p>
+
+    <hr>
+
+    <!-- Action Buttons -->
+    <a th:href="${project.githubLink}" target="_blank" class="btn github-btn">
+        💻 View GitHub Repository
+    </a>
+
+    <a th:href="${project.projectLink}" target="_blank" class="btn live-btn">
+        🌐 View Live Project
+    </a>
+
+    <br><br>
+    <a th:href="@{/p/{username}/projects(username=${user.username})}" class="btn back-btn">
+        ← Back to All Projects
+    </a>
+</div>
+</body>
+</html>
