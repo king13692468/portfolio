@@ -85,4 +85,10 @@ public class ProfileController {
 
         return "project-detail"; // IMPORTANT FIX
     }
+    @GetMapping("/debug/users")
+    @ResponseBody
+    public String debugUsers() {
+        List<User> users = userRepo.findAll();
+        return "Total users in DB: " + users.size() + " - Users: " + users.stream().map(User::getUsername).toList();
+    }
 }

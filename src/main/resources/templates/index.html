@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>My Portfolio System</title>
 </head>
 <body>
 <h1>My Portfolio System</h1>
 
-<form action="/p" method="get">
-    <input type="text" name="username" placeholder="Enter username">
+<form id="profileForm">
+    <input type="text" id="username" placeholder="Enter username" required>
     <button type="submit">View Profile</button>
 </form>
+
+<script>
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        if(username) {
+            window.location.href = '/p/' + username;
+        }
+    });
+</script>
 </body>
 </html>
