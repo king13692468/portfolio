@@ -56,6 +56,7 @@ public class ProfileController {
         return "linkedin";
     }
 
+
     // Show all projects (list view)
     @GetMapping("/p/{username}/projects")
     public String showProjects(@PathVariable String username, Model model) {
@@ -108,4 +109,38 @@ public class ProfileController {
         if (user == null) return "redirect:/";
         return "redirect:" + user.getLinkedinLink();
     }
+    // Handle form submission with query parameter
+    @GetMapping("/p")
+    public String profileWithQuery(@RequestParam String username, Model model) {
+        User user = userRepo.findByUsername(username);
+
+        if (user == null) {
+            return "redirect:/?error=User not found";
+        }
+
+        List<Project> projects = projectRepo.findByUserId(user.getId());
+        if (projects == null) {
+            projects = new ArrayList<>();
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("projects", projects);
+
+        return "profile";
+    }
+    @GetMapping("/check-users")
+    @ResponseBody
+    public String checkUsers() {
+        List<User> users = userRepo.findAll();
+        if (users.isEmpty()) {
+            return "No users found in database! Please add a user.";
+        }
+
+        StringBuilder sb = new StringBuilder("Users in database:<br>");
+        for (User u : users) {
+            sb.append("• ").append(u.getUsername()).append(" (").append(u.getName()).append(")<br>");
+        }
+        return sb.toString();
+    }
+
 }
