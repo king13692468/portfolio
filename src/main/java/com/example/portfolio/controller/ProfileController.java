@@ -31,12 +31,18 @@ public class ProfileController {
     }
 
     // =========================
-    // DEBUG ENDPOINT (Railway check)
+    // HEALTH CHECK (Railway)
     // =========================
     @GetMapping("/api")
     @ResponseBody
     public String api() {
         return "Portfolio System Running";
+    }
+
+    @GetMapping("/test")
+    @ResponseBody
+    public String test() {
+        return "OK - App is working";
     }
 
     // =========================
@@ -64,7 +70,7 @@ public class ProfileController {
     }
 
     // =========================
-    // PROJECT PAGE (SAFE VERSION)
+    // PROJECT DETAIL PAGE (FIXED)
     // =========================
     @GetMapping("/project/{id}")
     public String projectDetail(@PathVariable int id, Model model) {
@@ -77,11 +83,6 @@ public class ProfileController {
 
         model.addAttribute("project", project);
 
-        return "profile"; // fallback to profile (NO extra HTML needed)
-    }
-    @GetMapping("/test")
-    @ResponseBody
-    public String test() {
-        return "OK - App is working";
+        return "project-detail"; // IMPORTANT FIX
     }
 }
