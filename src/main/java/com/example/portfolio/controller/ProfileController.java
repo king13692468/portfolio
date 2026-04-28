@@ -79,4 +79,9 @@ public class ProfileController {
 
         return "profile"; // fallback to profile (NO extra HTML needed)
     }
+    @GetMapping("/test")
+    @ResponseBody
+    public String test() {
+        return "OK - App is working";
+    }
 }
