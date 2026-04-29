@@ -63,8 +63,7 @@ text
 https://your-domain.com/p/{username}
 Example:
 
-text
-https://your-domain.com/p/shadabmobin
+text https://portfolio-production-7853.up.railway.app/
 
 <strong>📌 FUTURE IMPROVEMENTS</strong>
 🔐 Add user authentication (login/signup)
