@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Portfolio System</title>
+    <title>My Portfolio System</title>
     <style>
-        body { font-family: Arial; text-align: center; margin-top: 50px; }
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
         input, button { padding: 10px; margin: 10px; }
-        button { background-color: #007bff; color: white; border: none; cursor: pointer; }
+        input { width: 200px; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; }
+        button:hover { background-color: #0056b3; }
+        .error { color: red; margin-top: 10px; }
+        .container { max-width: 400px; margin: auto; padding: 20px; }
+        .demo-text { margin-top: 20px; font-size: 14px; color: #007bff; font-weight: bold; }
     </style>
 </head>
 <body>
-<h1>My Portfolio System</h1>
+<div class="container">
+    <h1>My Portfolio System</h1>
 
-<form action="/p" method="get">
-    <input type="text" name="username" placeholder="Enter username" required>
-    <button type="submit">View Portfolio</button>
-</form>
+    <form id="profileForm">
+        <input type="text" id="username" placeholder="Enter username" required>
+        <br>
+        <button type="submit">View Portfolio</button>
+    </form>
 
-<br>
-<p>Demo users: john_doe, jane_smith</p>
+    <div id="error" class="error"></div>
+
+    <p class="demo-text">🔍 Search "shadab" to check my profile</p>
+</div>
+
+<script>
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        if(username) {
+            window.location.href = '/p/' + username;
+        } else {
+            document.getElementById('error').textContent = 'Please enter a username';
+        }
+    });
+</script>
 </body>
 </html>
