@@ -105,24 +105,15 @@ The application is deployed and accessible online:
 
 ## 📸 Screenshots
 
-<div align="center">
+Click any link below to view screenshots:
 
-### Home Page
-![Home Page](screenshots/home-page.png)
+- [🏠 Home Page](screenshots/home-page.png)
+- [📝 Create Profile](screenshots/create-profile.png)
+- [🎛️ Profile Menu](screenshots/profile-menu.png)
+- [📁 Projects List](screenshots/projects-list.png)
+- [➕ Add Project](screenshots/add-project-form.png)
 
-### Create Profile Form
-![Create Profile](screenshots/create-profile.png)
-
-### Profile Menu
-![Profile Menu](screenshots/profile-menu.png)
-
-### Projects List
-![Projects List](screenshots/projects-list.png)
-
-### Add Project Form
-![Add Project Form](screenshots/add-project-form.png)
-
-</div>
+📁 **Full folder:** [`screenshots`](screenshots)
 
 ## 🚀 Getting Started
 
