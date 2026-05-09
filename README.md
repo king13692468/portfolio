@@ -196,3 +196,141 @@ portfolio/
 ├── pom.xml
 └── README.md
 ```
+## 🔗 API Endpoints
+
+| Method | URL | Description |
+|--------|-----|-------------|
+| GET | `/` | Home page |
+| GET | `/p/{username}` | View user profile menu |
+| GET | `/p/{username}/projects` | View user's projects |
+| GET | `/p/{username}/project/{id}` | View project details |
+| GET | `/p/{username}/resume` | View resume page |
+| GET | `/p/{username}/redirect/github` | Redirect to GitHub profile |
+| GET | `/p/{username}/redirect/linkedin` | Redirect to LinkedIn profile |
+| POST | `/create-profile` | Create new user profile |
+| GET | `/create-project/{username}` | Show add project form |
+| POST | `/create-project` | Add new project |
+| GET | `/check-users` | List all users (debug) |
+
+## 📊 Database Schema
+
+### User Table
+```sql
+CREATE TABLE user (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    github_link VARCHAR(255),
+    linkedin_link VARCHAR(255),
+    resume_link VARCHAR(255)
+);
+```
+
+### Project Table
+```sql
+CREATE TABLE project (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    description TEXT,
+    github_link VARCHAR(255),
+    project_link VARCHAR(255),
+    details TEXT,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+```
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Java 17 or higher
+- MySQL 8.0 or higher
+- Maven 3.8+
+- Git
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/king13692468/portfolio.git
+   cd portfolio
+   ```
+
+2. **Configure MySQL database**
+   ```sql
+   CREATE DATABASE portfolio_db;
+   ```
+
+3. **Update `application.properties`**
+   ```properties
+   spring.datasource.url=jdbc:mysql://localhost:3306/portfolio_db
+   spring.datasource.username=your_username
+   spring.datasource.password=your_password
+   spring.jpa.hibernate.ddl-auto=update
+   ```
+
+4. **Build and run**
+   ```bash
+   mvn clean install
+   mvn spring-boot:run
+   ```
+
+5. **Access the application**
+   ```
+   http://localhost:8080
+   ```
+   ## ☁️ Deployment
+
+### Deploy to Railway (Free)
+
+1. **Push code to GitHub**
+   ```bash
+   git push origin main
+   ```
+
+2. **Connect to Railway**
+   - Go to [Railway.app](https://railway.app)
+   - Click "New Project" → "Deploy from GitHub"
+   - Select your repository
+
+3. **Add MySQL database**
+   - Click "New" → "Database" → "MySQL"
+
+4. **Your app is live!**
+   - Railway provides a URL like `https://portfolio-production-xxxx.up.railway.app`
+     
+## 🔮 Future Enhancements
+
+- [ ] User authentication (login/logout)
+- [ ] Edit/Delete profile feature
+- [ ] Edit/Delete projects feature
+- [ ] Profile views counter
+- [ ] Image upload for profile pictures
+- [ ] Skill tags and technologies
+- [ ] Contact form with email
+- [ ] Dark mode toggle
+- [ ] PDF resume upload
+- [ ] Social media share buttons
+- [ ] Search projects by technology
+- [ ] Pagination for projects list
+- [ ] Email notifications
+- [ ] Export portfolio as PDF
+
+## 👨‍💻 Author
+
+**Shadab**
+
+<div align="center">
+
+[![GitHub](https://img.shields.io/badge/GitHub-king13692468-181717?style=for-the-badge&logo=github)](https://github.com/king13692468)
+
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live_Demo-28a745?style=for-the-badge&logo=railway)](https://portfolio-production-7853.up.railway.app/)
+
+</div>
+
+---
+
+## ⭐ Show Your Support
+
+If you found this project helpful, please give it a ⭐ on GitHub!
+
