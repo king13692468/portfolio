@@ -108,22 +108,21 @@ The application is deployed and accessible online:
 <div align="center">
 
 ### Home Page
-![Home Page](https://via.placeholder.com/800x400?text=Home+Page+with+Search)
+![Home Page](screenshots/home-page.png)
+
+### Create Profile Form
+![Create Profile](screenshots/create-profile.png)
 
 ### Profile Menu
-![Profile Menu](https://via.placeholder.com/800x400?text=Profile+Menu)
+![Profile Menu](screenshots/profile-menu.png)
 
 ### Projects List
-![Projects List](https://via.placeholder.com/800x400?text=Projects+List)
+![Projects List](screenshots/projects-list.png)
 
 ### Add Project Form
-![Add Project Form](https://via.placeholder.com/800x400?text=Add+Project+Form)
+![Add Project Form](screenshots/add-project-form.png)
 
 </div>
-
-> *Note: Replace placeholder images with actual screenshots of your application*
-
----
 
 ## 🚀 Getting Started
 
