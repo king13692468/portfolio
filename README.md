@@ -151,3 +151,45 @@ The application is deployed and accessible online:
    spring.jpa.hibernate.ddl-auto=update
    spring.jpa.show-sql=true
    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+4. **Build and run the application**
+   ```bash
+   mvn clean install
+   mvn spring-boot:run
+5. **Access the application**
+   ```bash
+   http://localhost:8080
+## 📁 Project Structure
+portfolio/
+├── src/
+│ ├── main/
+│ │ ├── java/
+│ │ │ └── com/example/portfolio/
+│ │ │ ├── controller/
+│ │ │ │ └── ProfileController.java
+│ │ │ ├── entity/
+│ │ │ │ ├── User.java
+│ │ │ │ └── Project.java
+│ │ │ ├── repository/
+│ │ │ │ ├── UserRepository.java
+│ │ │ │ └── ProjectRepository.java
+│ │ │ └── PortfolioApplication.java
+│ │ └── resources/
+│ │ ├── templates/
+│ │ │ ├── index.html
+│ │ │ ├── menu.html
+│ │ │ ├── profile.html
+│ │ │ ├── projects-list.html
+│ │ │ ├── project-details.html
+│ │ │ ├── resume.html
+│ │ │ ├── create-profile.html
+│ │ │ └── create-project.html
+│ │ ├── static/
+│ │ │ └── css/
+│ │ │ └── style.css
+│ │ └── application.properties
+│ └── test/
+│ └── java/
+│ └── com/example/portfolio/
+│ └── PortfolioApplicationTests.java
+├── pom.xml
+└── README.md
