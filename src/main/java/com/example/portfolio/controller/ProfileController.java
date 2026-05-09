@@ -181,4 +181,5 @@ public class ProfileController {
         model.addAttribute("user", user);
         return "create-project";
     }
+    
 }

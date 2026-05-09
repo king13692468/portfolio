@@ -3,7 +3,7 @@
 <head>
     <title th:text="${user.name} + ' - Portfolio'"></title>
     <style>
-        body { font-family: Arial; margin: 40px; text-align: center; }
+        body { font-family: Arial, sans-serif; margin: 40px; text-align: center; }
         .menu-container { max-width: 500px; margin: auto; }
         h1 { color: #333; }
         .menu-btn {
@@ -16,8 +16,15 @@
             text-decoration: none;
             border-radius: 5px;
             font-size: 18px;
+            box-sizing: border-box;
         }
         .menu-btn:hover { background-color: #0056b3; }
+        .add-project-btn {
+            background-color: #28a745;
+        }
+        .add-project-btn:hover {
+            background-color: #218838;
+        }
         .logout-btn { background-color: #6c757d; }
         .logout-btn:hover { background-color: #5a6268; }
     </style>
@@ -41,6 +48,11 @@
 
     <a th:href="${user.resumeLink}" target="_blank" class="menu-btn">
         📄 View Resume
+    </a>
+
+    <!-- ADD NEW PROJECT BUTTON - FIXED -->
+    <a th:href="@{/create-project/{username}(username=${user.username})}" class="menu-btn add-project-btn">
+        ➕ Add New Project
     </a>
 
     <br><br>
