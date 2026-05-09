@@ -140,3 +140,14 @@ The application is deployed and accessible online:
    ```bash
    git clone https://github.com/king13692468/portfolio.git
    cd portfolio
+2. **Configure MySQL database**
+   ```bash
+   CREATE DATABASE portfolio_db;
+3. **Update application.properties**
+   ```bash
+   spring.datasource.url=jdbc:mysql://localhost:3306/portfolio_db
+   spring.datasource.username=your_username
+   spring.datasource.password=your_password
+   spring.jpa.hibernate.ddl-auto=update
+   spring.jpa.show-sql=true
+   spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
