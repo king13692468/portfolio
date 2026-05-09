@@ -33,31 +33,42 @@ public class ProfileController {
         if (user == null) return "redirect:/";
 
         model.addAttribute("user", user);
-        return "menu"; // Main menu page
+        return "menu";
     }
 
-    // Show GitHub
-    @GetMapping("/p/{username}/github")
-    public String showGithub(@PathVariable String username, Model model) {
-        User user = userRepo.findByUsername(username);
-        if (user == null) return "redirect:/";
+    // ============ CREATE PROFILE FEATURE ============
 
-        model.addAttribute("user", user);
-        return "github";
+    @GetMapping("/create-profile")
+    public String showCreateProfileForm() {
+        return "create-profile";
     }
 
-    // Show LinkedIn
-    @GetMapping("/p/{username}/linkedin")
-    public String showLinkedin(@PathVariable String username, Model model) {
-        User user = userRepo.findByUsername(username);
-        if (user == null) return "redirect:/";
+    @PostMapping("/create-profile")
+    public String createProfile(@RequestParam String username,
+                                @RequestParam String name,
+                                @RequestParam(required = false) String githubLink,
+                                @RequestParam(required = false) String linkedinLink,
+                                @RequestParam(required = false) String resumeLink) {
 
-        model.addAttribute("user", user);
-        return "linkedin";
+        User existingUser = userRepo.findByUsername(username);
+        if (existingUser != null) {
+            return "redirect:/create-profile?error=Username already exists";
+        }
+
+        User user = new User();
+        user.setUsername(username);
+        user.setName(name);
+        user.setGithubLink(githubLink != null ? githubLink : "#");
+        user.setLinkedinLink(linkedinLink != null ? linkedinLink : "#");
+        user.setResumeLink(resumeLink != null ? resumeLink : "#");
+
+        userRepo.save(user);
+
+        return "redirect:/p/" + username;
     }
 
+    // ============ OTHER EXISTING METHODS ============
 
-    // Show all projects (list view)
     @GetMapping("/p/{username}/projects")
     public String showProjects(@PathVariable String username, Model model) {
         User user = userRepo.findByUsername(username);
@@ -69,7 +80,6 @@ public class ProfileController {
         return "projects-list";
     }
 
-    // Show single project details
     @GetMapping("/p/{username}/project/{projectId}")
     public String showProjectDetails(@PathVariable String username,
                                      @PathVariable int projectId,
@@ -84,7 +94,6 @@ public class ProfileController {
         return "project-details";
     }
 
-    // Show Resume
     @GetMapping("/p/{username}/resume")
     public String showResume(@PathVariable String username, Model model) {
         User user = userRepo.findByUsername(username);
@@ -94,7 +103,6 @@ public class ProfileController {
         return "resume";
     }
 
-    // Direct redirect to GitHub link
     @GetMapping("/p/{username}/redirect/github")
     public String redirectToGithub(@PathVariable String username) {
         User user = userRepo.findByUsername(username);
@@ -102,32 +110,25 @@ public class ProfileController {
         return "redirect:" + user.getGithubLink();
     }
 
-    // Direct redirect to LinkedIn link
     @GetMapping("/p/{username}/redirect/linkedin")
     public String redirectToLinkedin(@PathVariable String username) {
         User user = userRepo.findByUsername(username);
         if (user == null) return "redirect:/";
         return "redirect:" + user.getLinkedinLink();
     }
-    // Handle form submission with query parameter
+
     @GetMapping("/p")
     public String profileWithQuery(@RequestParam String username, Model model) {
         User user = userRepo.findByUsername(username);
-
         if (user == null) {
             return "redirect:/?error=User not found";
         }
-
         List<Project> projects = projectRepo.findByUserId(user.getId());
-        if (projects == null) {
-            projects = new ArrayList<>();
-        }
-
         model.addAttribute("user", user);
         model.addAttribute("projects", projects);
-
         return "profile";
     }
+
     @GetMapping("/check-users")
     @ResponseBody
     public String checkUsers() {
@@ -135,7 +136,6 @@ public class ProfileController {
         if (users.isEmpty()) {
             return "No users found in database! Please add a user.";
         }
-
         StringBuilder sb = new StringBuilder("Users in database:<br>");
         for (User u : users) {
             sb.append("• ").append(u.getUsername()).append(" (").append(u.getName()).append(")<br>");
@@ -143,5 +143,42 @@ public class ProfileController {
         return sb.toString();
     }
 
+    @GetMapping("/test-create")
+    @ResponseBody
+    public String testCreate() {
+        return "Create profile endpoint is reachable!";
+    }
+    // ============ CREATE PROJECT FEATURE ============
 
+    @PostMapping("/create-project")
+    public String createProject(@RequestParam int userId,
+                                @RequestParam String title,
+                                @RequestParam String description,
+                                @RequestParam(required = false) String githubLink,
+                                @RequestParam(required = false) String projectLink,
+                                @RequestParam(required = false) String details) {
+
+        Project project = new Project();
+        project.setUserId(userId);
+        project.setTitle(title);
+        project.setDescription(description);
+        project.setGithubLink(githubLink != null && !githubLink.isEmpty() ? githubLink : "#");
+        project.setProjectLink(projectLink != null && !projectLink.isEmpty() ? projectLink : "#");
+        project.setDetails(details != null && !details.isEmpty() ? details : "No details provided");
+
+        projectRepo.save(project);
+
+        User user = userRepo.findById(userId).get();
+        return "redirect:/p/" + user.getUsername() + "/projects";
+    }
+
+    // Also add the GET endpoint for showing the form
+    @GetMapping("/create-project/{username}")
+    public String showCreateProjectForm(@PathVariable String username, Model model) {
+        User user = userRepo.findByUsername(username);
+        if (user == null) return "redirect:/";
+
+        model.addAttribute("user", user);
+        return "create-project";
+    }
 }

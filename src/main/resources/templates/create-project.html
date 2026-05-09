@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Project</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        textarea { height: 100px; }
+        button { background-color: #28a745; color: white; padding: 10px; margin-top: 20px; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Add New Project for <span th:text="${user.name}"></span></h2>
+
+    <form action="/create-project" method="post">
+        <input type="hidden" name="userId" th:value="${user.id}">
+
+        <label>Project Title:</label>
+        <input type="text" name="title" required>
+
+        <label>Short Description:</label>
+        <textarea name="description" required></textarea>
+
+        <label>GitHub Link:</label>
+        <input type="url" name="githubLink">
+
+        <label>Live Project Link:</label>
+        <input type="url" name="projectLink">
+
+        <label>Detailed Description:</label>
+        <textarea name="details" placeholder="Technologies used, features, challenges..."></textarea>
+
+        <button type="submit">➕ Add Project</button>
+    </form>
+
+    <a th:href="@{/p/{username}(username=${user.username})}">← Back to Menu</a>
+</div>
+</body>
+</html>
